@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import contactRoutes from "./routes/contact.js";
+import db from "./database.js";
 
 dotenv.config();
 const app = express();

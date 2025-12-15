@@ -1,62 +1,40 @@
-import React, { useState } from "react";
-import Sidebar from "./components/Sidebar";
-import HomeSection from "./components/sections/HomeSection";
-import AboutSection from "./components/sections/AboutSection";
-import SkillsSection from "./components/sections/SkillsSection";
-import Certeficate from "./components/sections/Certeficate";
-import ResumeSection from "./components/sections/ResumeSection";
-import PortfolioSection from "./components/sections/PortfolioSection";
-import ServiceSection from "./components/sections/ServiceSection";
-import ContactSection from "./components/sections/ContactSection";
+import React, { useState } from 'react';
+import Sidebar from './components/Sidebar';
+import HomeSection from './components/sections/HomeSection';
+import AboutSection from './components/sections/AboutSection';
+import SkillsSection from './components/sections/SkillsSection';
+import ResumeSection from './components/sections/ResumeSection';
+import PortfolioSection from './components/sections/PortfolioSection';
+import ServiceSection from './components/sections/ServiceSection';
+import ContactSection from './components/sections/ContactSection';
+import { MOCK_PROFILE } from './data/mockData';
+import CertificateSection from "./components/sections/CertificateSection";
+
 
 function App() {
-  const [activeSection, setActiveSection] = useState("home");
+  const [activeSection, setActiveSection] = useState('home');
 
-  // Scroll to section
   const scrollToSection = (id) => {
     const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
-      setActiveSection(id);
-    }
-  };
-
-  // Static profile data
-  const profile = {
-    skills: [
-      { name: "React", level: "Advanced" },
-      { name: "JavaScript", level: "Advanced" },
-      { name: "CSS", level: "Intermediate" },
-    ],
-    projects: [
-      { title: "Project 1", description: "Description 1" },
-      { title: "Project 2", description: "Description 2" },
-    ],
-    services: [
-      { title: "Web Development", description: "Fullstack web apps" },
-    ],
-    contact: {
-      email: "example@mail.com",
-      phone: "+123456789",
-    },
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    setActiveSection(id);
   };
 
   return (
     <div className="flex">
-      {/* Sidebar */}
-      <Sidebar activeSection={activeSection} scrollToSection={scrollToSection} />
-
-      {/* Main content */}
-      <main className="ml-64 w-full">
-        <HomeSection />
-        <AboutSection profile={profile} />
-        <SkillsSection skills={profile.skills} />
-        <ResumeSection />
-        <Certeficate />
-        <PortfolioSection projects={profile.projects} />
-        <ServiceSection services={profile.services} />
-        <ContactSection contact={profile.contact} />
-      </main>
+      <div className="w-64 bg-gray-900 min-h-screen">
+        <Sidebar profile={MOCK_PROFILE} activeSection={activeSection} scrollToSection={scrollToSection}/>
+      </div>
+      <div className="flex-1">
+        <HomeSection profile={MOCK_PROFILE}/>
+        <AboutSection profile={MOCK_PROFILE}/>
+        <SkillsSection skills={MOCK_PROFILE.skills}/>
+        <ResumeSection/>
+        <CertificateSection/>
+        <PortfolioSection projects={MOCK_PROFILE.projects}/>
+        <ServiceSection services={MOCK_PROFILE.services}/>
+        <ContactSection contact={MOCK_PROFILE.contact}/>
+      </div>
     </div>
   );
 }

@@ -9,22 +9,22 @@ import cert3 from "../../assets/programming.jpg";
 
 const certificates = [
   {
-    title: "Programming Certificate",
-    description: "Completed a programming course from Udacity.",
+    title: "Artificial Intelligence",
+    description: "Completed an AI course from Udacity.",
     image: cert1,
-    live: "https://example.com/certificate1"
+    live: "https://www.udacity.com/certificate/e/9798cd24-a933-11f0-acf9-e3c95565ac11"
   },
   {
     title: "Mobile App Development Certificate",
     description: "Completed Android course from Udacity.",
     image: cert2,
-    live: "https://example.com/certificate2"
+    live: "https://www.udacity.com/certificate/e/813e22d4-a926-11f0-88bb-139877eb694d"
   },
   {
-    title: "Artificial Intelligence Certificate",
-    description: "Learned artificial intelligence course.",
+    title: "Programming Certificate",
+    description: "Completed a programming course from Udacity.",
     image: cert3,
-    live: "https://example.com/certificate3"
+    live: "https://www.udacity.com/certificate/e/272bb7ce-b8b4-11ef-b5d9-fb41cce1aebe"
   },
 ];
 
@@ -35,12 +35,11 @@ const CertificateSection = () => {
     <section
       id="certificate"
       className="py-20 px-8 min-h-screen flex flex-col items-center"
-      style={{
-        background: "linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%)"
-      }}
+      style={{ background: "linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%)" }}
     >
       <SectionHeader Icon={Award} title="Certificates" />
 
+      {/* Certificate Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center mt-8">
         {certificates.map((cert, index) => (
           <div
@@ -70,30 +69,43 @@ const CertificateSection = () => {
 
       {/* Modal */}
       {selectedCert && (
-        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl max-w-xl w-full relative shadow-xl">
+        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4 overflow-auto">
+          <div className="bg-white rounded-xl max-w-4xl w-full relative shadow-xl flex flex-col md:flex-row max-h-[85vh] overflow-y-auto">
+            {/* Close Button */}
             <button
               onClick={() => setSelectedCert(null)}
-              className="absolute top-2 right-2 text-gray-600 hover:text-gray-900 font-bold text-2xl"
+              className="absolute top-2 right-2 text-gray-600 hover:text-gray-900 font-bold text-3xl z-50"
             >
               &times;
             </button>
+
+            {/* Left: Certificate Image */}
             <img
               src={selectedCert.image}
               alt={selectedCert.title}
-              className="w-full rounded-t-xl"
+              className="w-full md:w-1/2 h-48 md:h-auto object-cover rounded-t-xl md:rounded-l-xl md:rounded-tr-none"
             />
-            <div className="p-5 text-center">
-              <h3 className="text-xl font-bold mb-2">{selectedCert.title}</h3>
+
+            {/* Right: Info + iframe */}
+            <div className="p-5 flex flex-col flex-1">
+              <h3 className="text-2xl font-bold mb-3">{selectedCert.title}</h3>
               <p className="text-gray-700 mb-4">{selectedCert.description}</p>
-              <a
-                href={selectedCert.live}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition font-semibold inline-block"
+
+              {/* Live certificate preview */}
+              <div className="flex-1 mb-4">
+                <iframe
+                  src={selectedCert.live}
+                  title={selectedCert.title}
+                  className="w-full h-64 md:h-72 border rounded-lg"
+                ></iframe>
+              </div>
+
+              <button
+                onClick={() => setSelectedCert(null)}
+                className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition font-semibold"
               >
-                View Certificate Online
-              </a>
+                Close
+              </button>
             </div>
           </div>
         </div>

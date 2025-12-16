@@ -19,7 +19,7 @@ const handleSubmit = async (e) => {
   setStatus('sending');
 
   try {
-    const response = await fetch('http://localhost:5000/api/contact', {
+    const response = await fetch('https://myportfoliowebsite-9.onrender.com/api/contact', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData),
@@ -41,6 +41,7 @@ const handleSubmit = async (e) => {
     showToast('Server error. Please try again later.', 'error');
   }
 };
+
 const showToast = (message, type) => {
   setToast({ message, type });
   setTimeout(() => setToast({ message: '', type: '' }), 4000); // auto-hide after 4s

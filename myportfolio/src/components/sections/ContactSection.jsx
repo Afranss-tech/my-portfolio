@@ -8,7 +8,8 @@ const ContactSection = ({ contact }) => {
   const [status, setStatus] = useState('');
   const [toast, setToast] = useState({ message: '', type: '' });
 
-  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000'; // env variable for backend
+  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });

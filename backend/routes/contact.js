@@ -1,14 +1,8 @@
 import express from "express";
-const router = express.Router();
-import nodemailer from "nodemailer";
-
-let messages = [];
-import express from "express";
 import nodemailer from "nodemailer";
 
 const router = express.Router();
 
-// Temporary in-memory storage
 let messages = [];
 
 // GET all messages (for testing)
@@ -35,7 +29,7 @@ router.post("/", async (req, res) => {
   messages.push(newMessage);
 
   try {
-    // Create transporter
+    // Create transporter using Render Env Variables
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
@@ -47,8 +41,8 @@ router.post("/", async (req, res) => {
     // Send email
     await transporter.sendMail({
       from: `"Portfolio Contact" <${process.env.EMAIL_USER}>`,
-      to: process.env.EMAIL_USER,       // email goes to YOU
-      replyTo: email,                   // reply directly to sender
+      to: process.env.EMAIL_USER, // email goes to YOU
+      replyTo: email, // reply directly to sender
       subject: `New Contact Message from ${name}`,
       html: `
         <h2>New Contact Message</h2>
@@ -63,34 +57,10 @@ router.post("/", async (req, res) => {
       message: "Message received and email sent",
       data: newMessage,
     });
-
   } catch (error) {
     console.error("Email error:", error);
     res.status(500).json({ error: "Failed to send email" });
   }
-});
-
-export default router;
-
-// GET all messages
-router.get("/", (req, res) => res.json(messages));
-
-// POST a new message
-router.post("/", (req, res) => {
-  const { name, email, message } = req.body;
-  if (!name || !email || !message)
-    return res.status(400).json({ error: "All fields are required" });
-
-  const newMessage = {
-    id: messages.length + 1,
-    name,
-    email,
-    message,
-    createdAt: new Date(),
-  };
-  messages.push(newMessage);
-
-  res.status(201).json({ message: "Message received", data: newMessage });
 });
 
 export default router;

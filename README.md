@@ -52,5 +52,5 @@ Below are highlights from the live application, demonstrating the design and cor
 
 | 📄 Resume & Skills | 📬 Contact Form |
 | :---: | :---: |
-| ![Resume Section](./myportfolio/image/image_8420c4.png) | ![Contact Form](./myportfolio/image/image_793c5e.png) |
+| ![Resume Section](./myportfolio/image/image_8420c4.png) | ![Contact Form](myportfolio/images/contact.png) |
 | *Professional experience & stack* | *Functional Nodemailer integration* |

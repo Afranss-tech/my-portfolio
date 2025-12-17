@@ -41,17 +41,16 @@ Afran Nesru
 
 GitHub: @Afranss-tech
 
- 🖼️ Project Showcase
+  🖼️ Project Showcase
 
 Below are highlights from the live application, demonstrating the design and core functionalities.
 
 | 🏠 Home Page | 🚀 Projects Section |
 | :---: | :---: |
-| ![Home Page](./myportfolio/image/home.png) | ![Projects](./myportfolio/image/resume.png) |
+| ![Home Page](./myportfolio/image/image_78c73f.png) | ![Projects](./myportfolio/image/image_78dde8.png) |
 | *Clean, responsive entry point* | *Showcasing my latest work* |
 
 | 📄 Resume & Skills | 📬 Contact Form |
 | :---: | :---: |
-| ![Resume Section](./myportfolio/image/project.png) | ![Contact Form](./myportfolio/image/contact.png) |
+| ![Resume Section](./myportfolio/image/image_8420c4.png) | ![Contact Form](./myportfolio/image/image_793c5e.png) |
 | *Professional experience & stack* | *Functional Nodemailer integration* |
-

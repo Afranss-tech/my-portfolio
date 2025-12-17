@@ -15,33 +15,42 @@ const ContactSection = ({ contact }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setStatus('sending');
+ const handleSubmit = async (e) => {
+  e.preventDefault();
+  setStatus('sending');
 
-    try {
-      const response = await fetch(`${API_URL}/api/contact`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+  try {
+    const controller = new AbortController();
+    setTimeout(() => controller.abort(), 60000); // 60s timeout
+
+    const response = await fetch(
+      "https://myportfoliowebsite-9.onrender.com/api/contact",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        setStatus('success');
-        setFormData({ name: '', email: '', message: '' });
-        showToast('Message sent successfully!', 'success');
-      } else {
-        setStatus('error');
-        showToast(data.error || 'Something went wrong.', 'error');
+        signal: controller.signal,
       }
-    } catch (error) {
-      console.error('Error:', error);
-      setStatus('error');
-      showToast('Server error. Please try again later.', 'error');
+    );
+
+    const data = await response.json();
+
+    if (response.ok) {
+      setStatus('success');
+      setFormData({ name: '', email: '', message: '' });
+      showToast("Message sent successfully!", "success");
+    } else {
+      throw new Error(data.error || "Failed");
     }
-  };
+  } catch (error) {
+    console.error(error);
+    showToast(
+      "Server is waking up. Please wait 30 seconds and try again.",
+      "error"
+    );
+  }
+};
+
 
   const showToast = (message, type) => {
     setToast({ message, type });

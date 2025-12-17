@@ -15,41 +15,37 @@ const ContactSection = ({ contact }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
- const handleSubmit = async (e) => {
+const handleSubmit = async (e) => {
   e.preventDefault();
-  setStatus('sending');
+  setStatus("sending");
 
   try {
-    const controller = new AbortController();
-    setTimeout(() => controller.abort(), 60000); // 60s timeout
-
     const response = await fetch(
       "https://myportfoliowebsite-9.onrender.com/api/contact",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
-        signal: controller.signal,
       }
     );
 
     const data = await response.json();
 
-    if (response.ok) {
-      setStatus('success');
-      setFormData({ name: '', email: '', message: '' });
-      showToast("Message sent successfully!", "success");
-    } else {
-      throw new Error(data.error || "Failed");
+    if (!response.ok) {
+      throw new Error(data.error || "Request failed");
     }
+
+    setStatus("success");
+    setFormData({ name: "", email: "", message: "" });
+    showToast("Message sent successfully!", "success");
+
   } catch (error) {
-    console.error(error);
-    showToast(
-      "Server is waking up. Please wait 30 seconds and try again.",
-      "error"
-    );
+    console.error("Fetch error:", error);
+    setStatus("error");
+    showToast("Backend not responding. Try again.", "error");
   }
 };
+
 
 
   const showToast = (message, type) => {

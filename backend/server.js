@@ -2,14 +2,17 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import contactRoutes from "./routes/contact.js";
-import db from "./database.js"; // Keep if you use it later
+import db from "./database.js";
 
 dotenv.config();
 const app = express();
 
-// Middleware
-app.use(cors());
-app.use(express.json());
+app.use(
+  cors({
+    origin: "https://flourishing-taffy-7a5d5d.netlify.app",
+    methods: ["GET", "POST"],
+  })
+);
 
 // Root route
 app.get("/", (req, res) => res.send({ message: "Backend is running!" }));

@@ -47,7 +47,7 @@ Below are highlights from the live application, demonstrating the design and cor
 
 | 🏠 Home Page | 🚀 Projects Section |
 | :---: | :---: |
-| ![Home Page](myportfolio/images/Home.png) | ![Projects](./myportfolio/image/image_78dde8.png) |
+| ![Home Page](myportfolio/images/Home.png) | ![Projects](myportfolio/images/project.png) |
 | *Clean, responsive entry point* | *Showcasing my latest work* |
 
 | 📄 Resume & Skills | 📬 Contact Form |

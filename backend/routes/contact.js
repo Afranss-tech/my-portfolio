@@ -27,14 +27,17 @@ router.post("/", async (req, res) => {
   try {
     // 1. Better transporter config for Gmail
     const transporter = nodemailer.createTransport({
-      service: "gmail",
       host: "smtp.gmail.com",
       port: 465,
-      secure: true, // Use SSL
+      secure: true, // true for 465, false for other ports
       auth: {
         user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS, // federuejkmpwhkgmo (must be exactly 16 chars)
+        pass: process.env.EMAIL_PASS,
       },
+      // Added connection timeout settings
+      connectionTimeout: 10000, // 10 seconds
+      greetingTimeout: 10000,
+      socketTimeout: 10000,
     });
 
     // 2. Critical: Test the connection before sending

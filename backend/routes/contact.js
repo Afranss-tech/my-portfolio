@@ -14,6 +14,7 @@ router.post("/", async (req, res) => {
     return res.status(400).json({ error: "All fields are required" });
   }
 
+  // Save to memory
   const newMessage = {
     id: messages.length + 1,
     name,
@@ -24,47 +25,35 @@ router.post("/", async (req, res) => {
   messages.push(newMessage);
 
   try {
+    // 1. Better transporter config for Gmail
     const transporter = nodemailer.createTransport({
       service: "gmail",
       host: "smtp.gmail.com",
       port: 465,
-      secure: true,
+      secure: true, // Use SSL
       auth: {
         user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
+        pass: process.env.EMAIL_PASS, // federuejkmpwhkgmo (must be exactly 16 chars)
       },
     });
 
-    // Verify connection configuration before sending
+    // 2. Critical: Test the connection before sending
     await transporter.verify();
 
+    // 3. Send Email
     await transporter.sendMail({
       from: `"${name}" <${process.env.EMAIL_USER}>`,
       to: process.env.EMAIL_USER,
       replyTo: email,
-      subject: `New Portfolio Message from ${name}`,
-      text: `Message: ${message}\n\nSender Email: ${email}`,
-      html: `
-        <div style="font-family: Arial, sans-serif; padding: 20px;">
-          <h3>New Contact Form Submission</h3>
-          <p><strong>Name:</strong> ${name}</p>
-          <p><strong>Email:</strong> ${email}</p>
-          <p><strong>Message:</strong> ${message}</p>
-        </div>
-      `,
+      subject: `Portfolio Message from ${name}`,
+      html: `<p><strong>Name:</strong> ${name}</p><p><strong>Message:</strong> ${message}</p>`,
     });
 
-    res
-      .status(201)
-      .json({ message: "Message sent successfully!", data: newMessage });
+    res.status(201).json({ message: "Sent!", data: newMessage });
   } catch (error) {
-    // THIS LOG IS CRUCIAL: Check your Render dashboard "Logs" tab to see this output
-    console.error("CRITICAL MAILER ERROR:", error);
-
-    res.status(500).json({
-      error: "Backend reached, but Gmail rejected the request.",
-      details: error.message,
-    });
+    // If it fails, we need to see WHY in the Render Logs
+    console.error("Nodemailer Error Details:", error);
+    res.status(500).json({ error: "Email failed", details: error.message });
   }
 });
 

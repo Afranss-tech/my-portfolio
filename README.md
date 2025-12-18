@@ -1,5 +1,7 @@
 Full-Stack Developer Portfolio
-A professional, high-performance portfolio website built with a React frontend and a Node.js/Express backend. This project features a live contact form integrated with Nodemailer and is fully deployed using modern CI/CD workflows.
+A professional, high-performance portfolio website built with a React frontend and a Node.js/Express backend. 
+This project features a live contact form integrated with Nodemailer and is fully deployed using modern CI/CD workflows.
+
 Live Links
 Live Website: https://flourishing-taffy-7a5d5d.netlify.app
 
@@ -26,15 +28,16 @@ EMAIL_USER=your-email@gmail.com
 EMAIL_PASS=your-16-digit-app-password
 PORT=5000
 Installation & Setup
+
 Clone the Repo:
 git clone https://github.com/Afranss-tech/my-portfolio.git
+
 Install Backend Dependencies:
 cd backend
 npm install
 Start the Server:
 
 Bash
-
 npm start
 👨‍💻 Author
 Afran Nesru
